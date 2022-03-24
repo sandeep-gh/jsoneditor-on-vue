@@ -26,6 +26,7 @@ def JsonEditor_(key, pcp=[], **kwargs):
         editor_cbox.ediv = a
         editor_cbox.apk = f'{tprefix}{key}'
         editor_cbox.apkdbmap = Dict()
+        _f.jsonEditor = _d
         _d.postinit()
         return editor_cbox
     return _f
@@ -80,6 +81,11 @@ class JsonEditor(JustpyBaseComponent):
     def add_to_page(self, wp: WebPage):
         wp.add_component(self)
 
+    def replace_content(self, jsontext):
+        self.jsontext = jsontext
+        self.update_create = True
+        pass
+
     def add_to(self, *args):
         for c in args:
             c.add_component(self)
@@ -113,7 +119,8 @@ class JsonEditor(JustpyBaseComponent):
         d['event_propagation'] = self.event_propagation
         d['def'] = self.options
         d['jsontext'] = self.jsontext
-        print("new chart options = ", json.dumps(d['def'], default=str))
+        #print("jsonEditor:convert_object_to_dict = ", self.jsontext)
+
         d['events'] = self.events
         d['width'] = self.width
         d['height'] = self.height
